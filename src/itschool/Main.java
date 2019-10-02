@@ -2,8 +2,12 @@ package itschool;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Random;
 
 public class Main {
+
+    final static int N = 90;
+    static int[][] arr = new int[N][N];
 
     public static void main(String[] args) {
         final int N = 20;
@@ -95,7 +99,103 @@ public class Main {
         //hormirr();
         //findDifferent();
         //sortRows();
-        change100();
+        //change100();
+        //task969();
+        //task972();
+        //pascktri();
+        square();
+    }
+
+    private static void square() {
+
+
+        for (int r = 0; r < arr.length; r++) {
+            Arrays.fill(arr[r], 1);
+        }
+        int k = N;
+
+        cut(arr, k / 3, k / 3 * 2, k / 3, k / 3 * 2);
+
+
+        cut(arr, k / 3 / 3, k / 3 * 2 / 3, k / 3 / 3, k / 3 * 2 / 3);
+        cut(arr, k / 3 * 2 + k / 3 / 3, k / 3 * 2 + k / 3 / 3 * 2, k / 3 * 2 + k / 3 / 3, k / 3 * 2 + k / 3 / 3 * 2);
+        cut(arr, k / 3 - k / 3 / 3 * 2, k / 3 - k / 3 / 3, k / 3 * 2 + k / 3 / 3, k / 3 * 2 + k / 3 / 3 * 2);
+        cut(arr, k / 3 * 2 + k / 3 / 3, k / 3 * 2 + k / 3 / 3 * 2, k / 3 - k / 3 / 3 * 2, k / 3 - k / 3 / 3);
+
+
+        //cut(arr, k/3/3/3,k/3*2/3/3,k/3/3/3,k/3*2/3/3);
+
+
+        printArray(arr, 1);
+    }
+
+    private static void cut(int[][] arr, int r1, int r2, int c1, int c2) {
+        for (int r = r1; r < r2; r++) {
+            for (int c = c1; c < c2; c++) {
+                arr[r][c] = 0;
+            }
+        }
+    }
+
+
+    private static void pascktri() {
+        final int N = 500;
+        int[][] arr = new int[N][N];
+        arr[0][N / 2 - 1] = 1;
+        arr[0][N / 2] = 1;
+        for (int r = 1; r < arr.length; r++) {
+            for (int c = 0; c < arr[r].length / 2; c++) {
+                arr[r][c] = arr[r - 1][c] + arr[r - 1][c + 1];
+            }
+            for (int c = arr.length / 2; c < arr[r].length; c++) {
+                arr[r][c] = arr[r - 1][c] + arr[r - 1][c - 1];
+            }
+        }
+        //printArray(arr);
+
+        for (int r = 0; r < arr.length; r++) {
+            for (int c = 0; c < arr[r].length; c++) {
+                if (arr[r][c] % 2 == 0) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print("*");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private static void task972() {
+        final int N = 10;
+        int[][] arr = new int[N][N];
+        for (int r = 0; r < arr.length; r++) {
+            for (int c = 0; c < arr[r].length; c++) {
+                for (int i = 0; i < N; i++) {
+                    if (r - i == c) {
+                        arr[r][c] = N - i;
+                    }
+                }
+            }
+        }
+        printArray(arr);
+    }
+
+    private static void task969() {
+        final int M = 5, N = 8;
+        Random random = new Random();
+        int[][] arr = new int[N][M];
+        for (int r = 0; r < arr.length; r++) {
+            for (int c = 0; c < arr[r].length; c++) {
+                arr[r][c] = 15 + random.nextInt(15);
+            }
+        }
+        printArray(arr);
+        int s = 0, k;
+        for (int r = 0; r < arr.length; r++) {
+            s += arr[r][2];
+
+        }
+        System.out.println(s / arr.length);
     }
 
     private static void change100() {
@@ -189,7 +289,17 @@ public class Main {
         Locale.setDefault(Locale.US);
         for (int r = 0; r < array.length; r++) {
             for (int c = 0; c < array[r].length; c++)
-                System.out.print(array[r][c] + "\t");
+                System.out.print(String.format("%8d", array[r][c]));
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void printArray(int[][] array, int n) {
+        Locale.setDefault(Locale.US);
+        for (int r = 0; r < array.length; r++) {
+            for (int c = 0; c < array[r].length; c++)
+                System.out.print(String.format("%" + n + "d", array[r][c]));
             System.out.println();
         }
         System.out.println();
