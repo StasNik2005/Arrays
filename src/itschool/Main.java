@@ -103,7 +103,50 @@ public class Main {
         //task969();
         //task972();
         //pascktri();
-        square();
+        //square();
+        snail();
+    }
+
+
+    private static void snail() {
+        int N = 10, r = 0, c = 0, a = 0;
+        int[][] arr = new int[N][N];
+        for (int k = 1; k <= N * N; k++) {
+            arr[r][c] = k;
+
+            if (r == 0 + a && c < N - 1) {
+                c++;
+                if (c == N - a) {
+                    c--;
+                    r++;
+                }
+            } else {
+                if ((c == N - 1 - a && r < N - 1 - a) || (r == a && c == N - a)) {
+                    r++;
+                } else {
+                    if (r == N - 1 - a && c > 0) {
+                        c--;
+                        if (c == a - 1) {
+                            c++;
+                            r--;
+                        }
+                    } else {
+                        if (c == 0 + a && r > a) {
+                            r--;
+                            if (r == a) {
+                                a++;
+                                r++;
+                                c++;
+                            }
+                        }
+                    }
+                }
+            }
+            printArray(arr);
+            System.out.println(r + " " + c + " " + k + " " + a);
+
+        }
+
     }
 
     private static void square() {
